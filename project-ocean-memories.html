@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ocean's Memories — Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #ffffff;
+      --text:   #111110;
+      --muted:  #888884;
+      --border: #e8e6e2;
+      --ocean:  #0a2a3a;
+      --sand:   #8b5e2a;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,26,34,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 48px;
+    }
+
+    .top-bar-left { display: flex; align-items: center; gap: 32px; }
+    .top-bar-left span { font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: 0.03em; }
+    .top-bar-left .date { font-weight: 500; color: rgba(255,255,255,0.8); }
+    .top-bar-right { text-align: right; }
+    .top-bar-right .course-name { font-size: 13px; font-weight: 600; color: white; }
+    .top-bar-right .course-meta { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      position: relative;
+      background: #1a0f08;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Overview overlay at bottom of hero */
+    .hero-overview {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px 32px;
+      background: linear-gradient(to top, rgba(10,8,5,0.92) 0%, transparent 100%);
+    }
+
+    .hero-overview strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .hero-overview p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      max-width: 780px;
+    }
+
+    /* ── WRAP ── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 64px; }
+
+
+    /* ── SECTIONS ── */
+    .section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px; font-weight: 700;
+      margin-bottom: 20px; letter-spacing: -0.3px;
+    }
+
+    /* ── SCOPE ── */
+    .scope-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .tool-badges { display: flex; gap: 8px; }
+    .tool-badge { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .badge-ps  { background: #001e36; color: #31a8ff; }
+    .badge-bld { background: #ea7600; color: white; font-size: 15px; }
+
+    .scope-col h4 { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+    .scope-col ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .scope-col ul li { font-size: 13px; color: var(--muted); padding-left: 14px; position: relative; line-height: 1.5; }
+    .scope-col ul li::before { content: '•'; position: absolute; left: 0; color: var(--border); }
+
+    /* ── VIDEO ── */
+    .video-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #e8f6ff;
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16/9;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+    }
+
+    .vimeo-icon {
+      width: 56px; height: 56px;
+      background: #1ab7ea;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: white; font-weight: 700;
+    }
+
+    .video-placeholder p { font-size: 13px; color: #5bb0e8; }
+
+    /* ── BEFORE / AFTER GRID ── */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ba-item { display: flex; flex-direction: column; gap: 10px; }
+
+    .ba-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .ba-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    .ba-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 3D ANIMATION (full img) ── */
+    .full-img { width: 100%; border-radius: 8px; overflow: hidden; }
+    .full-img img { width: 100%; display: block; }
+
+    /* ── NAV BOTTOM ── */
+    .nav-bottom { display: flex; justify-content: flex-end; padding: 32px 0 64px; }
+
+    .btn-next {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+      color: var(--text); text-decoration: none;
+      padding: 12px 24px; border: 1.5px solid var(--border); border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .btn-next:hover { background: var(--text); color: white; border-color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .top-bar { padding: 12px 20px; }
+      .wrap { padding: 0 20px; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .hero-overview { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="date">Sep 2025 — Oct 2025</span>
+      <span>New Technologies in Communication Course</span>
+    </div>
+    <div class="top-bar-right">
+      <div class="course-name">New technologies in Communication course</div>
+      <div class="course-meta">Group Assignment · Team size: 4</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="ocean-memories/cover-ocean-memories.png" alt="Ocean's Memories Cover"/>
+    <!-- 👉 đặt ảnh tại: ocean-memories/cover-ocean-memories.png -->
+
+    <div class="hero-overview">
+      <strong>Overview</strong>
+      <p>Ocean's Memories is an Interactive Design by Touch Designer. Through direct hand-based interaction, viewers can to touch and reveal the ocean's original beauty, conveying an environmental message and raising awareness of the threats facing marine ecosystems due to human impact.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- SCOPE OF WORK -->
+    <div class="section">
+      <div class="scope-header">
+        <div class="section-title">Scope of work</div>
+        <div class="tool-badges">
+          <div class="tool-badge badge-ps">Ps</div>
+          <div class="tool-badge badge-bld">⬡</div>
+        </div>
+      </div>
+
+      <div class="scope-col">
+        <h4>3D Animation</h4>
+        <ul>
+          <li>Contributed to develop concepts, designs.</li>
+          <li>Built 3D ocean environments, animated models and color graded.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TESTING VIDEO -->
+    <div class="section">
+      <div class="section-title">Testing video</div>
+      <div class="video-wrap">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1192669690?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="TOUCH DESIGN"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D MODELING — Before / After -->
+    <div class="section">
+      <div class="section-title">3D Modeling</div>
+      <div class="ba-grid">
+        <div class="ba-item">
+          <div class="ba-img">
+            <img src="ocean-memories/ocean-before.png" alt="Before"/>
+            <!-- 👉 đặt ảnh tại: ocean-memories/ocean-before.png -->
+          </div>
+          <div class="ba-label">Before</div>
+        </div>
+        <div class="ba-item">
+          <div class="ba-img">
+            <img src="ocean-memories/ocean-after.png" alt="After"/>
+            <!-- 👉 đặt ảnh tại: ocean-memories/0101_1.png -->
+          </div>
+          <div class="ba-label">After</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- NAV BOTTOM -->
+    <div class="nav-bottom">
+      <a href="works.html" class="btn-next">Next →</a>
+    </div>
+
+  </div>
+
+  <script src="nav.js"></script>
+
+</body>
+</html>

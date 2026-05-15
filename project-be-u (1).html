@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bé U — Animation Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #ffffff;
+      --dark:   #003042;
+      --text:   #111110;
+      --muted:  #888884;
+      --border: #e8e6e2;
+      --accent: #4ecdc4;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(0,48,66,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 48px;
+    }
+
+    .top-bar-left { display: flex; align-items: center; gap: 32px; }
+    .top-bar-left span { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.03em; }
+    .top-bar-left .date { font-weight: 500; color: rgba(255,255,255,0.85); }
+    .top-bar-right { text-align: right; }
+    .top-bar-right .course-name { font-size: 13px; font-weight: 600; color: white; }
+    .top-bar-right .course-meta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+    /* ── WRAP ── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── HERO ── */
+    .hero { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--dark); }
+    .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px; font-weight: 700;
+      margin-bottom: 20px; letter-spacing: -0.3px;
+    }
+
+    .overview-text { font-size: 14px; color: var(--muted); max-width: 640px; line-height: 1.75; }
+
+    /* ── SCOPE ── */
+    .scope-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .tool-badges { display: flex; gap: 8px; }
+    .tool-badge { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .badge-ps  { background: #001e36; color: #31a8ff; }
+    .badge-ai  { background: #ff7c00; color: #330000; }
+    .badge-bld { background: #ea7600; color: white; font-size: 15px; }
+
+    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .scope-col h4 { font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+    .scope-col ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .scope-col ul li { font-size: 13px; color: var(--muted); line-height: 1.5; padding-left: 14px; position: relative; }
+    .scope-col ul li::before { content: '•'; position: absolute; left: 0; color: var(--border); }
+
+    /* ── CHAR SECTION ── */
+    .char-section {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 32px;
+      align-items: center;
+      background: var(--dark);
+      border-radius: 16px;
+      overflow: hidden;
+      padding: 32px;
+    }
+
+    .char-section img { width: 100%; border-radius: 10px; display: block; }
+
+    .char-stats { display: flex; flex-direction: column; gap: 20px; }
+
+    .stat-group { display: flex; flex-direction: column; gap: 7px; }
+
+    .stat-labels { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.55); }
+
+    .stat-bar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+    .stat-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--accent), #7ee8e8); }
+
+    /* ── DARK SECTION ── */
+    .section-dark { background: var(--dark); padding: 56px 0; }
+    .section-dark .section-title { color: white; }
+
+    /* ── FULL IMG ── */
+    .full-img { width: 100%; border-radius: 8px; overflow: hidden; }
+    .full-img img { width: 100%; display: block; }
+
+    /* ── VIDEO ── */
+    .video-wrap { width: 100%; border-radius: 12px; overflow: hidden; background: #e8f4ff; }
+    .video-placeholder { aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .vimeo-icon { width: 56px; height: 56px; background: #1ab7ea; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; font-weight: 700; }
+    .video-placeholder p { font-size: 13px; color: #5bb0e8; }
+
+    /* ── NAV BOTTOM ── */
+    .nav-bottom { display: flex; justify-content: flex-end; padding: 32px 0 64px; }
+    .btn-next {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+      color: var(--text); text-decoration: none;
+      padding: 12px 24px; border: 1.5px solid var(--border); border-radius: 100px;
+      transition: all 0.2s;
+    }
+    .btn-next:hover { background: var(--text); color: white; border-color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .top-bar { padding: 12px 20px; }
+      .wrap { padding: 0 20px; }
+      .scope-grid { grid-template-columns: 1fr; gap: 24px; }
+      .char-section { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="date">Oct 2024 — Dec 2024</span>
+      <span>Animation Course</span>
+    </div>
+    <div class="top-bar-right">
+      <div class="course-name">Animation course</div>
+      <div class="course-meta">Group Assignment · Team size: 4</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="be-u/cover-beu.png" alt="Bé U Cover"/>
+    <!-- 👉 đặt ảnh tại: be-u/cover-beu.png -->
+  </div>
+
+  <div class="wrap">
+
+    <!-- OVERVIEW -->
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p class="overview-text">
+        In response to the brief of designing a mascot representing UEH, Bé U is portrayed as an alien, symbolizing the harmonious integration of technology and future-oriented vision. Coming from a different culture yet friendly, open-minded, and highly adaptable, Bé U represents UEH's multidisciplinary, diverse, and globally integrated learning environment.
+      </p>
+    </div>
+
+    <!-- SCOPE OF WORK -->
+    <div class="section">
+      <div class="scope-header">
+        <div class="section-title">Scope of work</div>
+        <div class="tool-badges">
+          <div class="tool-badge badge-ps">Ps</div>
+          <div class="tool-badge badge-ai">Ai</div>
+          <div class="tool-badge badge-bld">⬡</div>
+        </div>
+      </div>
+
+      <div class="scope-grid">
+        <div class="scope-col">
+          <h4>Graphic Design</h4>
+          <ul>
+            <li>Contributed to brainstorm ideas for character and visual concepts</li>
+            <li>Designed information poster</li>
+          </ul>
+        </div>
+        <div class="scope-col">
+          <h4>3D Modeling</h4>
+          <ul>
+            <li>Designed and modeled 3D character outfits</li>
+            <li>Supported for 3D Animation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Namecard + stats -->
+      <div class="char-section">
+        <img src="be-u/namecard.png" alt="Bé U Namecard"/>
+        <!-- 👉 đặt ảnh tại: be-u/namecard.png -->
+
+        <div class="char-stats">
+          <div class="stat-group">
+            <div class="stat-labels"><span>Lanh lùng</span><span>Thân thiện</span></div>
+            <div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div>
+          </div>
+          <div class="stat-group">
+            <div class="stat-labels"><span>Nghiêm túc</span><span>Vui vẻ</span></div>
+            <div class="stat-bar"><div class="stat-fill" style="width:80%"></div></div>
+          </div>
+          <div class="stat-group">
+            <div class="stat-labels"><span>Sáng tạo</span><span>Kỉ luật</span></div>
+            <div class="stat-bar"><div class="stat-fill" style="width:60%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 3D MODELING — dark -->
+  <div class="section-dark">
+    <div class="wrap">
+      <div class="section-title">3D Modeling</div>
+      <div class="full-img">
+        <img src="be-u/3d-modeling.png" alt="3D Modeling"/>
+        <!-- 👉 đặt ảnh tại: be-u/3d-modeling.png -->
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- POSTER -->
+    <div class="section">
+      <div class="section-title" style="text-align:center">Poster</div>
+      <div class="full-img">
+        <img src="be-u/poster.png" alt="Bé U Poster"/>
+        <!-- 👉 đặt ảnh tại: be-u/poster.png -->
+      </div>
+    </div>
+
+    <!-- INTRODUCTION VIDEO -->
+    <div class="section">
+      <div class="section-title" style="text-align:center">Introduction Video</div>
+      <div class="video-wrap">
+        <!-- 👉 THAY: dán iframe Vimeo vào đây -->
+        <!-- <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/XXXXXXX" frameborder="0" allow="autoplay; fullscreen" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div> -->
+        <div class="video-placeholder">
+          <div class="vimeo-icon">v</div>
+          <p>Dán link Vimeo vào đây</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV BOTTOM -->
+    <div class="nav-bottom">
+      <a href="works.html" class="btn-next">← Back to Projects</a>
+    </div>
+
+  </div>
+
+  <script src="nav.js"></script>
+
+</body>
+</html>

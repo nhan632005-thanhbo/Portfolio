@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bên Trai — MV Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #111110;
+      --muted: #888884;
+      --border: #e8e6e2;
+      --red:   #f60500;
+      --blue:  #0064ff;
+      --green: #2a6e00;
+      --yellow:#f5c800;
+      --pink:  #f163e3;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 48px;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .top-bar-left span {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    .top-bar-left .date {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .top-bar-right {
+      text-align: right;
+    }
+
+    .top-bar-right .course-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .top-bar-right .course-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── WRAPPER ── */
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+
+    /* ── OVERVIEW ── */
+    .overview-text {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.75;
+    }
+
+    /* ── SCOPE OF WORK ── */
+    .scope-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .tool-badges {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-ps { background: #001e36; color: #31a8ff; }
+    .badge-ai { background: #ff7c00; color: #330000; }
+
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .scope-col h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .scope-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .scope-col ul li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .scope-col ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    /* ── VIDEO ── */
+    .video-wrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+    }
+
+    .video-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: #5bb0e8;
+    }
+
+    .video-placeholder .vimeo-icon {
+      width: 56px;
+      height: 56px;
+      background: #1ab7ea;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .video-placeholder p {
+      font-size: 13px;
+      color: #5bb0e8;
+    }
+
+    /* ── FULL WIDTH IMAGES ── */
+    .full-img {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .full-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* ── KEY VISUAL ── */
+    .kv-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 32px 0;
+    }
+
+    .kv-wrap img {
+      max-width: 320px;
+      width: 100%;
+    }
+
+    /* ── COLOR PALETTE ── */
+    .palette-grid {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .swatch-shape {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shape-circle {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .shape-square {
+      width: 48px; height: 48px;
+      background: var(--blue);
+    }
+
+    .shape-triangle {
+      width: 0; height: 0;
+      border-left: 26px solid transparent;
+      border-right: 26px solid transparent;
+      border-bottom: 46px solid var(--green);
+    }
+
+    .shape-star {
+      font-size: 44px;
+      line-height: 1;
+      color: var(--yellow);
+    }
+
+    .shape-diamond {
+      width: 44px; height: 44px;
+      background: var(--pink);
+      transform: rotate(45deg);
+    }
+
+    .swatch-hex {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .typo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 8px;
+    }
+
+    .typo-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .typo-big {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      flex-shrink: 0;
+    }
+
+    .typo-info { display: flex; flex-direction: column; gap: 2px; }
+    .typo-name { font-size: 14px; font-weight: 600; }
+    .typo-sample { font-size: 10px; color: var(--muted); letter-spacing: 0.03em; line-height: 1.6; }
+
+    /* ── LINK CARDS ── */
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 16/5;
+      background: #f0f0f8;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s;
+      gap: 16px;
+      color: #7070c0;
+    }
+
+    .link-card:hover { background: #e4e4f4; }
+
+    .link-icon {
+      font-size: 36px;
+      opacity: 0.6;
+    }
+
+    .link-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #7070c0;
+    }
+
+    /* ── NAV BOTTOM ── */
+    .nav-bottom {
+      display: flex;
+      justify-content: flex-end;
+      padding: 32px 0 64px;
+    }
+
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .btn-next:hover {
+      background: var(--text);
+      color: white;
+      border-color: var(--text);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .top-bar { padding: 12px 20px; }
+      .wrap { padding: 0 20px; }
+      .scope-grid { grid-template-columns: 1fr; gap: 24px; }
+      .typo-grid { grid-template-columns: 1fr; }
+      .palette-grid { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="date">Mar 2025 — May 2025</span>
+      <span>Media Production Course</span>
+    </div>
+    <div class="top-bar-right">
+      <div class="course-name">Media Production course</div>
+      <div class="course-meta">Group Assignment · Team size 7 · Supervisor: Director Nguyễn Lê Trung Hải</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="mv-bentrai/cover-bentrai.png" alt="Bên Trai MV Cover"/>
+  </div>
+
+  <div class="wrap">
+
+    <!-- OVERVIEW -->
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p class="overview-text">
+        A remake MV produced by our team as part of the Media Production course.
+      </p>
+    </div>
+
+    <!-- SCOPE OF WORK -->
+    <div class="section">
+      <div class="scope-header">
+        <div class="section-title">Scope of work</div>
+        <div class="tool-badges">
+          <div class="tool-badge badge-ps">Ps</div>
+          <div class="tool-badge badge-ai">Ai</div>
+        </div>
+      </div>
+
+      <div class="scope-grid">
+        <div class="scope-col">
+          <h4>Project Manager</h4>
+          <ul>
+            <li>Led and coordinated production teams and workflows</li>
+            <li>Managed project timelines, budgets, and workflows</li>
+            <li>Oversaw 4 shoot-day operations, logistics, and quality control</li>
+          </ul>
+        </div>
+        <div class="scope-col">
+          <h4>Assistant Director</h4>
+          <ul>
+            <li>Supported Director in executing creative vision of script</li>
+            <li>Managed shooting schedules, shot lists, and call sheets</li>
+            <li>Coordinated communication between director, crew, and casts</li>
+            <li>Monitored on-set timing and continuity</li>
+          </ul>
+        </div>
+        <div class="scope-col">
+          <h4>Graphic Design</h4>
+          <ul>
+            <li>Collaborated with Art Director on visual concepts</li>
+            <li>Designed thumbnails, typography, and production materials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL VIDEO -->
+    <div class="section">
+      <div class="section-title">Final Video</div>
+      <div class="video-wrap">
+        <div style="padding:56.25% 0 0 0;position:relative;border-radius:12px;overflow:hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/J9u9l6yuhbE"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            style="position:absolute;top:0;left:0;width:100%;height:100%;">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOOD -->
+    <div class="section">
+      <div class="section-title">Mood</div>
+      <div class="full-img">
+        <img src="mv-bentrai/moodboard.png" alt="Moodboard"/>
+        <!-- 👉 THAY: đổi đường dẫn thành file moodboard của bạn -->
+      </div>
+    </div>
+
+    <!-- TONE -->
+    <div class="section">
+      <div class="section-title">Tone</div>
+      <div class="full-img">
+        <img src="mv-bentrai/tone.png" alt="Tone"/>
+        <!-- 👉 THAY: đổi đường dẫn thành file tone của bạn -->
+      </div>
+    </div>
+
+    <!-- KEY VISUAL -->
+    <div class="section">
+      <div class="section-title">Key visual</div>
+      <div class="kv-wrap">
+        <img src="mv-bentrai/kv-bentrai.png" alt="Key Visual Bên Trai"/>
+        <!-- 👉 THAY: đổi đường dẫn thành file key visual của bạn -->
+      </div>
+    </div>
+
+    <!-- CALLSHEET -->
+        <div class="section">
+      <div class="section-title">Callsheet</div>
+      <iframe 
+        allowfullscreen="allowfullscreen"
+        allow="clipboard-write"
+        scrolling="no"
+        class="fp-iframe"
+        style="border: 1px solid lightgray; width: 100%; height: 400px; border-radius: 8px;"
+        src="https://heyzine.com/flip-book/9a567a0afa.html">
+      </iframe>
+    </div>
+
+    <!-- NAV BOTTOM -->
+    <div class="nav-bottom">
+      <a href="#" class="btn-next">Next →</a>
+    </div>
+
+  </div><!-- /.wrap -->
+
+</body>
+</html>

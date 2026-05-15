@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills — Nguyễn Thanh Nhàn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #f8f5f0;
+      --text:    #1a1816;
+      --muted:   #8a8680;
+      --navy:    #1a3a5c;
+      --gold:    #b8943f;
+      --border:  rgba(26,24,22,0.1);
+      --surface: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ══ HERO STRIP ══ */
+    .page-hero {
+      background: var(--navy);
+      padding: 80px 64px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: 'SKILLS';
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 160px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.04);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 1.5px;
+      background: var(--gold);
+    }
+
+    .page-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 400;
+      color: white;
+      line-height: 1.0;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .page-hero p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      line-height: 1.8;
+    }
+
+    /* ══ WRAP ══ */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    /* ══ SECTION ══ */
+    .section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    .section-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    /* ══ PROGRESS BARS — SOFTWARE ══ */
+    .software-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 64px;
+    }
+
+    .sw-item { display: flex; flex-direction: column; gap: 10px; }
+
+    .sw-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sw-info { display: flex; align-items: center; gap: 12px; }
+
+    .sw-badge {
+      width: 32px; height: 32px;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .sw-ps  { background: #001e36; color: #31a8ff; }
+    .sw-ai  { background: #ff7c00; color: #1a0000; }
+    .sw-lr  { background: #001c3a; color: #add5ec; }
+    .sw-id  { background: #49021f; color: #ff3895; }
+    .sw-ae  { background: #00005b; color: #9999ff; }
+    .sw-pr  { background: #00005b; color: #ea77ff; }
+    .sw-bld { background: #ea7600; color: white; font-size: 14px; }
+    .sw-fg  { background: #0d0d0d; color: #a259ff; }
+
+    .sw-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .sw-pct {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .sw-track {
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .sw-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ══ SKILL BADGES — SOFT SKILLS ══ */
+    .badges-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text);
+      background: var(--surface);
+      cursor: default;
+      transition: all 0.25s;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .skill-badge.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skill-badge:hover {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(26,58,92,0.2);
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ══ LANGUAGE CARD ══ */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: 400px;
+      gap: 20px;
+    }
+
+    .lang-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.3s;
+    }
+
+    .lang-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+      border-color: var(--gold);
+    }
+
+    .lang-flag { font-size: 32px; }
+
+    .lang-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .lang-level {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lang-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .lang-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .lang-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      width: 0%;
+      transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+    }
+
+    /* ══ RADAR CHART ══ */
+    .chart-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .radar-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .radar-svg { overflow: visible; }
+
+    .radar-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0;
+      transform: translateX(16px);
+      transition: all 0.5s ease;
+    }
+
+    .legend-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .legend-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .legend-label {
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .legend-score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .legend-bar {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .legend-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    /* ══ FADE IN ══ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 900px) {
+      .page-hero { padding: 56px 32px 48px; }
+      .wrap { padding: 0 32px; }
+      .software-grid { grid-template-columns: 1fr; gap: 16px; }
+      .chart-wrap { grid-template-columns: 1fr; }
+      .radar-container { margin-bottom: 32px; }
+      .lang-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 48px 20px 40px; }
+      .wrap { padding: 0 20px; }
+      .section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HERO ══ -->
+  <div class="page-hero">
+    <div class="hero-eyebrow">Skills & Expertise</div>
+    <h1>What I <em>bring</em><br/>to the table.</h1>
+    <p>From graphic design to event coordination — I continuously learn and expand my toolkit to serve every creative project.</p>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ══ 01 SOFTWARE ══ -->
+    <div class="section">
+      <div class="section-header fade-up">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Software</h2>
+      </div>
+
+      <div class="software-grid" id="swGrid">
+        <!-- injected by JS -->
+      </div>
+    </div>
+
+    <!-- ══ 02 COMPETENCY RADAR ══ -->
+    <div class="section">
+      <div class="section-header fade-up">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Competency Overview</h2>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="radar-container fade-up">
+          <svg class="radar-svg" id="radarSvg" width="320" height="320" viewBox="0 0 320 320"></svg>
+        </div>
+        <div class="radar-legend" id="radarLegend">
+          <!-- injected by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 03 SOFT SKILLS ══ -->
+    <div class="section">
+      <div class="section-header fade-up">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Soft Skills</h2>
+      </div>
+
+      <div class="badges-wrap" id="badgesWrap">
+        <!-- injected by JS -->
+      </div>
+    </div>
+
+    <!-- ══ 04 LANGUAGE ══ -->
+    <div class="section">
+      <div class="section-header fade-up">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Language</h2>
+      </div>
+
+      <div class="lang-grid">
+        <div class="lang-card fade-up">
+          <div class="lang-flag">🇬🇧</div>
+          <div>
+            <div class="lang-name">English</div>
+            <div class="lang-level">IELTS 6.0 · 2023</div>
+          </div>
+          <div class="lang-bar-wrap">
+            <div class="lang-bar-label"><span>Proficiency</span><span>75%</span></div>
+            <div class="lang-bar"><div class="lang-fill" data-w="75"></div></div>
+          </div>
+          <div class="lang-bar-wrap">
+            <div class="lang-bar-label"><span>Reading</span><span>80%</span></div>
+            <div class="lang-bar"><div class="lang-fill" data-w="80"></div></div>
+          </div>
+          <div class="lang-bar-wrap">
+            <div class="lang-bar-label"><span>Speaking</span><span>65%</span></div>
+            <div class="lang-bar"><div class="lang-fill" data-w="65"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.wrap -->
+
+  <script>
+    /* ── DATA ── */
+    const software = [
+      { cls:'sw-ps',  label:'Ps',  name:'Photoshop',       pct:88 },
+      { cls:'sw-ai',  label:'Ai',  name:'Illustrator',     pct:82 },
+      { cls:'sw-lr',  label:'Lr',  name:'Lightroom',       pct:78 },
+      { cls:'sw-id',  label:'Id',  name:'InDesign',        pct:70 },
+      { cls:'sw-ae',  label:'Ae',  name:'After Effects',   pct:72 },
+      { cls:'sw-pr',  label:'Pr',  name:'Premiere Pro',    pct:75 },
+      { cls:'sw-bld', label:'B',   name:'Blender',         pct:60 },
+      { cls:'sw-fg',  label:'F',  name:'Figma',           pct:85 },
+    ];
+
+    const competencies = [
+      { label:'Graphic Design',        score:88 },
+      { label:'Event Coordination',    score:82 },
+      { label:'Content Creation',      score:78 },
+      { label:'Project Management',    score:75 },
+      { label:'Communication',         score:85 },
+      { label:'Creative Direction',    score:72 },
+    ];
+
+    const softSkills = [
+      'Interpersonal Communication','Project Management',
+      'Problem-solving','Planning','Scientific Research',
+      'Teamwork','Creative Thinking','Adaptability',
+      'Attention to Detail','Time Management',
+      'Event Coordination','Brand Consistency',
+    ];
+
+    /* ── BUILD SOFTWARE BARS ── */
+    const swGrid = document.getElementById('swGrid');
+    software.forEach(s => {
+      swGrid.innerHTML += `
+        <div class="sw-item fade-up">
+          <div class="sw-top">
+            <div class="sw-info">
+              <div class="sw-badge ${s.cls}">${s.label}</div>
+              <span class="sw-name">${s.name}</span>
+            </div>
+            <span class="sw-pct">${s.pct}%</span>
+          </div>
+          <div class="sw-track">
+            <div class="sw-fill" data-w="${s.pct}"></div>
+          </div>
+        </div>`;
+    });
+
+    /* ── BUILD SOFT SKILL BADGES ── */
+    const badgesWrap = document.getElementById('badgesWrap');
+    softSkills.forEach((s, i) => {
+      const el = document.createElement('div');
+      el.className = 'skill-badge';
+      el.style.transitionDelay = `${i * 0.05}s`;
+      el.innerHTML = `<span class="badge-dot"></span>${s}`;
+      badgesWrap.appendChild(el);
+    });
+
+    /* ── BUILD RADAR CHART ── */
+    function buildRadar() {
+      const svg = document.getElementById('radarSvg');
+      const cx = 160, cy = 160, R = 130;
+      const n = competencies.length;
+      const levels = [0.2, 0.4, 0.6, 0.8, 1.0];
+      const navy = '#1a3a5c', gold = '#b8943f';
+
+      function polar(angle, r) {
+        const a = (angle - Math.PI / 2);
+        return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+      }
+
+      // Grid rings
+      levels.forEach(lv => {
+        const pts = Array.from({length: n}, (_, i) => {
+          const [x,y] = polar((2*Math.PI*i)/n, R*lv);
+          return `${x},${y}`;
+        }).join(' ');
+        const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+        poly.setAttribute('points', pts);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', 'rgba(26,24,22,0.08)');
+        poly.setAttribute('stroke-width', '1');
+        svg.appendChild(poly);
+      });
+
+      // Axis lines
+      competencies.forEach((_, i) => {
+        const [x,y] = polar((2*Math.PI*i)/n, R);
+        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+        line.setAttribute('x2', x);  line.setAttribute('y2', y);
+        line.setAttribute('stroke', 'rgba(26,24,22,0.08)');
+        line.setAttribute('stroke-width', '1');
+        svg.appendChild(line);
+      });
+
+      // Data polygon (starts at 0 scale, animates to full)
+      const dataPoints = competencies.map((c, i) => {
+        const [x,y] = polar((2*Math.PI*i)/n, R * (c.score/100));
+        return `${x},${y}`;
+      });
+
+      const fill = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      fill.setAttribute('points', dataPoints.join(' '));
+      fill.setAttribute('fill', `rgba(26,58,92,0.12)`);
+      fill.setAttribute('stroke', navy);
+      fill.setAttribute('stroke-width', '1.5');
+      fill.style.opacity = '0';
+      fill.style.transition = 'opacity 0.8s ease';
+      svg.appendChild(fill);
+
+      // Data dots
+      competencies.forEach((c, i) => {
+        const [x,y] = polar((2*Math.PI*i)/n, R * (c.score/100));
+        const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        circle.setAttribute('cx', x); circle.setAttribute('cy', y);
+        circle.setAttribute('r', '4');
+        circle.setAttribute('fill', gold);
+        circle.setAttribute('stroke', 'white');
+        circle.setAttribute('stroke-width', '2');
+        circle.style.opacity = '0';
+        circle.style.transition = `opacity 0.4s ease ${0.8 + i*0.08}s`;
+        svg.appendChild(circle);
+
+        // Label
+        const [lx, ly] = polar((2*Math.PI*i)/n, R + 22);
+        const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+        text.setAttribute('x', lx); text.setAttribute('y', ly + 4);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '10');
+        text.setAttribute('font-family', 'DM Sans, sans-serif');
+        text.setAttribute('fill', 'rgba(26,24,22,0.5)');
+        text.textContent = c.label;
+        svg.appendChild(text);
+
+        svg._fill = fill;
+        svg._dots = svg._dots || [];
+        svg._dots.push(circle);
+      });
+
+      // Legend
+      const legend = document.getElementById('radarLegend');
+      competencies.forEach((c, i) => {
+        legend.innerHTML += `
+          <div class="legend-item" style="transition-delay:${i*0.1}s">
+            <div class="legend-top">
+              <span class="legend-label"><span class="legend-dot"></span>${c.label}</span>
+              <span class="legend-score">${c.score}</span>
+            </div>
+            <div class="legend-bar">
+              <div class="legend-fill" data-w="${c.score}"></div>
+            </div>
+          </div>`;
+      });
+    }
+
+    buildRadar();
+
+    /* ── INTERSECTION OBSERVER ── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.classList.add('visible');
+
+        // Progress bars
+        el.querySelectorAll('.sw-fill, .lang-fill, .legend-fill').forEach(bar => {
+          bar.style.width = bar.dataset.w + '%';
+        });
+
+        // Radar
+        if (el.classList.contains('radar-container')) {
+          const svg = document.getElementById('radarSvg');
+          if (svg._fill) svg._fill.style.opacity = '1';
+          if (svg._dots) svg._dots.forEach(d => d.style.opacity = '1');
+          document.querySelectorAll('.legend-fill').forEach(b => {
+            b.style.width = b.dataset.w + '%';
+          });
+          document.querySelectorAll('.legend-item').forEach(li => {
+            li.classList.add('visible');
+          });
+        }
+
+        io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up, .skill-badge, .radar-container').forEach(el => io.observe(el));
+  </script>
+<script src="nav.js"></script>
+</body>
+</html>

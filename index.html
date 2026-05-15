@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Nguyễn Thanh Nhàn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #f8f5f0;
+      --text:   #1a1816;
+      --muted:  #8a8680;
+      --navy:   #1a3a5c;
+      --gold:   #b8943f;
+      --border: rgba(26,24,22,0.1);
+      --nav-h:  64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(248,245,240,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo span {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--navy);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 18px;
+      border-radius: 100px;
+      border: 1px solid transparent;
+      transition: all 0.22s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: var(--border);
+      background: rgba(26,24,22,0.04);
+    }
+
+    .nav-links a.nav-cta {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+      font-weight: 600;
+    }
+
+    .nav-links a.nav-cta:hover {
+      background: var(--text);
+      border-color: var(--text);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: rgba(248,245,240,0.98);
+      backdrop-filter: blur(20px);
+      padding: 20px 32px 28px;
+      z-index: 199;
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--navy); }
+
+    /* ══ HERO ══ */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      padding-top: var(--nav-h);
+    }
+
+    .hero-left {
+      background: var(--navy);
+      padding: 64px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      bottom: 60px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-avatar {
+      position: relative;
+      z-index: 2;
+      width: 220px;
+      height: 280px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 40px;
+    }
+
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .contact-block { position: relative; z-index: 2; }
+
+    .contact-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-list li {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-list a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-list a:hover { color: white; }
+
+    .hero-right {
+      background: var(--bg);
+      padding: 72px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-right::before {
+      content: 'PORTFOLIO';
+      position: absolute;
+      top: 28px; right: 40px;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--border);
+    }
+
+    .position-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .position-tag::before {
+      content: '';
+      width: 24px; height: 1.5px;
+      background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 600;
+      line-height: 1.0;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--navy);
+    }
+
+    .hero-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.25s;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: white;
+      border: 1.5px solid var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--navy);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text);
+    }
+
+    .quick-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .quick-nav a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .quick-nav a:hover {
+      color: var(--navy);
+      border-color: rgba(26,58,92,0.3);
+      background: rgba(26,58,92,0.05);
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left {
+        padding: 40px 32px;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .hero-avatar { width: 160px; height: 200px; margin-bottom: 0; }
+      .hero-right { padding: 48px 32px; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .hero-left { padding: 32px 20px; }
+      .hero-right { padding: 40px 20px; }
+      .hero-name { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav>
+    <a href="index.html" class="nav-logo">Thanh<span>Nhàn</span></a>
+
+    <ul class="nav-links">
+      <li><a href="about-me.html">About me</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="s.html">s</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about-me.html">About me</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="s.html">s</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+
+    <div class="hero-left">
+      <div class="hero-avatar">
+        <img src="images/avatar.jpg" alt="Nguyễn Thanh Nhàn"/>
+        <!-- 👉 THAY: đường dẫn ảnh avatar -->
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-label">Contact</div>
+        <ul class="contact-list">
+          <li> 0934721101</li>
+          <li> <a href="mailto:nhan632005@gmail.com">nhan632005@gmail.com</a></li>
+          <li><a href="https://thanhnhanportfolio.figma.site" target="_blank">thanhnhanportfolio.figma.site</a></li>
+          <li> 06/03/2005</li>
+          <li> Ho Chi Minh City</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="position-tag">Marketing Intern Position</div>
+
+      <h1 class="hero-name">
+        Nguyễn<br/>
+        Thanh <em>Nhàn</em>
+      </h1>
+
+      <div class="hero-role">Digital Communication · Multimedia Design</div>
+
+      <p class="hero-bio">
+        As a Digital Communication student, I am passionate about creating engaging content and creative projects from concept to execution. With a strong ability to self-study new technologies and hands on experience across creative roles in diverse working environments, I am eager to bring my dynamic energy to a professional marketing team.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="projects.html" class="btn btn-primary">View Projects →</a>
+        <a href="about-me.html" class="btn btn-outline">About me</a>
+      </div>
+
+      <div class="quick-nav">
+        <a href="about-me.html">About me</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="s.html">s</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
